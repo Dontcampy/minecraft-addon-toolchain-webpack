@@ -105,7 +105,8 @@ class WebpackSupport {
                 // every input has one output
                 entry: filePaths,
                 output: {
-                  filename: '[name].js' // the path is specified in the name
+                  filename: '[name].js', // the path is specified in the name
+                  devtoolModuleFilenameTemplate: '[resource-path]' // Removes the webpack:/// prefix
                 },
                 module: {
                   rules: this.webpackRules
