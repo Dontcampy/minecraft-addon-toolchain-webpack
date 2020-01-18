@@ -92,7 +92,9 @@ class WebpackSupport {
           ).reduce((acc, val) => {
             for (let key in val) {
               // resolve the path and store by file name
-              acc[key] = path.resolve(packDir, val[key])
+              const parsedFilePath = path.parse(key)
+              const fileName = path.join(parsedFilePath.dir, parsedFilePath.name)
+              acc[fileName] = path.resolve(packDir, val[key])
             }
             return acc
           }, {})
@@ -103,7 +105,7 @@ class WebpackSupport {
                 // every input has one output
                 entry: filePaths,
                 output: {
-                  filename: '[name]' // the path is specified in the name
+                  filename: '[name].js' // the path is specified in the name
                 },
                 module: {
                   rules: this.webpackRules
